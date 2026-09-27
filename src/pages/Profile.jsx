@@ -145,7 +145,7 @@ const Profile = () => {
                     className="relative"
                   >
                     <img
-                      src="/images/satyam.png"
+                      src="/satyam.png"
                       alt="Profile"
                       className="w-32 h-32 rounded-full border-4 border-white shadow-2xl mx-auto object-cover"
                     />

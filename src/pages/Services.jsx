@@ -6,7 +6,6 @@ import { services } from '../data/mockData';
 const Services = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  // Build category list from services
   const categories = [
     { id: 'all', label: 'All Services', icon: '✨' },
     { id: 'Hotel Booking', label: 'Hotels', icon: '🏨' },
@@ -22,7 +21,6 @@ const Services = () => {
       ? services
       : services.filter((s) => s.name === activeCategory);
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -56,8 +54,6 @@ const Services = () => {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-12 sm:mb-16 max-w-3xl mx-auto"
         >
-          
-
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-[1.1] tracking-tight">
             Choose Your{' '}
             <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-purple-500 bg-clip-text text-transparent">
@@ -84,7 +80,6 @@ const Services = () => {
             <span className="text-sm text-gray-500 font-medium">Filter by category</span>
           </div>
 
-          {/* Scrollable on mobile, wrapped on desktop */}
           <div className="flex md:flex-wrap md:justify-center gap-2 overflow-x-auto pb-2 md:pb-0 
                           scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
             {categories.map((cat) => (
@@ -114,7 +109,7 @@ const Services = () => {
         </motion.div>
 
         {/* ============================================
-            SERVICES GRID
+            SERVICES GRID — now with real images
             ============================================ */}
         <motion.div
           variants={containerVariants}
@@ -147,35 +142,68 @@ const Services = () => {
                   </div>
                 )}
 
-                {/* Image / Icon Header */}
-                <div className={`relative h-40 sm:h-48 bg-gradient-to-br ${service.color} 
-                                 flex items-center justify-center overflow-hidden`}>
-                  {/* Animated shine */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 
-                                  -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                {/* ============================================
+                    IMAGE HEADER
+                    ============================================ */}
+                <div className="relative h-48 sm:h-52 overflow-hidden">
+                  {/* Photo */}
+                  <img
+                    src={service.image}
+                    alt={service.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover 
+                               group-hover:scale-110 transition-transform duration-700 ease-out"
+                  />
 
-                  {/* Big emoji icon */}
+                  {/* Colored gradient overlay (uses service.color) */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${service.color} 
+                                opacity-70 mix-blend-multiply`}
+                  />
+
+                  {/* Dark gradient at bottom for text legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+                  {/* Shine sweep on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/25 to-white/0 
+                                  -translate-x-full group-hover:translate-x-full 
+                                  transition-transform duration-1000 ease-out" />
+
+                  {/* Icon badge — top left */}
                   <motion.div
-                    whileHover={{ scale: 1.15, rotate: 5 }}
+                    whileHover={{ scale: 1.15, rotate: 6 }}
                     transition={{ type: 'spring', stiffness: 300 }}
-                    className="text-6xl sm:text-7xl relative z-10 drop-shadow-2xl"
+                    className="absolute top-4 left-4 w-12 h-12 rounded-2xl 
+                               bg-white/25 backdrop-blur-xl border border-white/30 
+                               flex items-center justify-center text-2xl shadow-lg"
                   >
                     {service.icon}
                   </motion.div>
 
-                  {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+                  {/* Rating chip — top right (below popular badge if present) */}
+                  <div className="absolute top-4 right-4 flex items-center gap-1 
+                                  bg-white/90 backdrop-blur-md rounded-full px-2.5 py-1 shadow-lg">
+                    <FiStar size={12} className="fill-yellow-400 text-yellow-400" />
+                    <span className="text-xs font-bold text-gray-800">
+                      {service.rating}
+                    </span>
+                  </div>
 
-                  {/* Bottom fade */}
-                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 to-transparent" />
+                  {/* Service name over image (bottom) */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-bold text-lg sm:text-xl leading-tight drop-shadow-lg">
+                      {service.name}
+                    </h3>
+                    <p className="text-white/80 text-xs mt-0.5 flex items-center gap-1">
+                      <span>{service.booked} booked</span>
+                    </p>
+                  </div>
                 </div>
 
-                {/* Content */}
+                {/* ============================================
+                    CONTENT
+                    ============================================ */}
                 <div className="p-5 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2 text-gray-900 
-                                 group-hover:text-primary-700 transition-colors">
-                    {service.name}
-                  </h3>
                   <p className="text-gray-500 text-sm sm:text-base mb-5 leading-relaxed">
                     {service.description}
                   </p>
@@ -259,7 +287,6 @@ const Services = () => {
                      bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 
                      px-6 sm:px-12 py-10 sm:py-14"
         >
-          {/* Decorative orbs */}
           <div className="absolute -top-20 -right-20 w-72 h-72 bg-primary-400/30 rounded-full blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl" />
 
@@ -284,9 +311,6 @@ const Services = () => {
         </motion.div>
       </div>
 
-      {/* ============================================
-          Hide scrollbar utility (for category pills)
-          ============================================ */}
       <style>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
