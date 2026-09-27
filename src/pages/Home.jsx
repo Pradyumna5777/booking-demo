@@ -90,7 +90,7 @@ const Home = () => {
               <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-2 mb-6">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full text-white text-xs font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  <span className="font-comfortaa">#1 Rated in 2024</span>
+                  <span className="font-comfortaa">#1 Rated in 2026</span>
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-yellow-500/20 backdrop-blur-xl border border-yellow-400/30 rounded-full text-yellow-200 text-xs font-medium">
                   <FiAward size={11} />
